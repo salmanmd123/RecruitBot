@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HireFusion - Job Automator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        .hidden { display: none !important; }
+        body { background-color: #f4f7f6; }
+        
+        #appPassword {
+            letter-spacing: 2px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+
+        .setup-link:hover {
+            text-decoration: underline !important;
+            color: #0a58ca !important;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand " href="#">HireFusion - Job Automator</a>
+            <div id="nav-user-info" class="hidden">
+                <span id="user-email-display" class="text-light me-3"></span>
+                <button id="logout-btn" class="btn btn-outline-danger btn-sm">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        
+        <div id="auth-section" class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-4 shadow border-0">
+                    <h3 id="auth-title" class="text-center mb-4">Login</h3>
+                    <div id="auth-error" class="alert alert-danger hidden"></div>
+                    
+                    <form id="auth-form">
+                        <div class="mb-3">
+                            <input type="email" id="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" id="password" class="form-control" placeholder="Login Password" required>
+                        </div>
+                        
+                        <div id="app-password-group" class="hidden mb-3">
+                            <label class="form-label text-danger fw-bold small">⚠️ Gmail App Password Required</label>
+                            <input type="password" id="appPassword" class="form-control mb-2 border-danger" placeholder="Enter 16-digit code">
+                            
+                            <div class="alert alert-warning border-start border-warning border-4 p-2 shadow-sm" style="font-size: 0.82rem;">
+                                <p class="mb-1 text-dark"><strong>Wait!</strong> Do not use your normal Gmail password.</p>
+                                <p class="mb-2 text-muted">Google requires a 16-letter "App Password" to allow this portal to send emails for you.</p>
+                                <a href="https://myaccount.google.com/apppasswords" target="_blank" class="fw-bold text-primary text-decoration-none setup-link">
+                                    Generate App Password Now →
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="url" id="linkedin" class="form-control hidden" placeholder="Your LinkedIn Profile URL (Optional)">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm" id="auth-submit">Login</button>
+                    </form>
+                    
+                    <p class="text-center mt-3 small text-muted">
+                        <a href="#" id="toggle-auth" class="text-decoration-none fw-bold">Need an account? Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboard-section" class="hidden">
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white p-3 shadow-sm border-0">
+                <h6 class="opacity-75">Applications Sent</h6>
+                <h2 id="total-apps">0</h2>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card bg-dark text-success p-3 shadow-sm border-0 font-monospace" style="height: 100px; font-size: 0.8rem; overflow-y: auto;" id="status-console">
+                <div>> System Ready. Waiting for command...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-5">
+            <div class="card p-4 shadow-sm border-0">
+                <h4 class="mb-3 text-secondary">New Automation</h4>
+                <form id="automation-form">
+                    <input type="text" id="keyword" class="form-control mb-3" placeholder="Job Title (e.g. Java Developer)" required>
+                    
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <select id="job-type" class="form-select">
+                                <option value="contract">Contract (C-C)</option>
+                                <option value="full-time">Full-Time</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="date-posted" class="form-select">
+                                <option value="r86400">Past 24 Hours</option>
+                                <option value="r604800">Past Week</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="form-label small fw-bold">Custom Cover Letter Template</label>
+                    <textarea id="cover-letter" class="form-control mb-3" rows="3" placeholder="Hello, I saw your [title] post..."></textarea>
+
+                    <label class="form-label small fw-bold">Upload Resume (PDF)</label>
+                    <input type="file" id="resume" class="form-control mb-3" accept=".pdf" required>
+                    
+                    <button type="submit" class="btn btn-success w-100 py-2" id="auto-btn">🤖 Start Auto-Apply</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card p-4 shadow-sm border-0 h-100">
+                <h4 class="mb-3 text-secondary">Success History</h4>
+                <div id="history-list" class="list-group mt-1" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
