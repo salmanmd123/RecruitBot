@@ -1,4 +1,4 @@
-HireFusion - Job Automator
+RecruitBot - Job Automator
 
 A professional Application designed to automate the job search and application process. This tool uses **Puppeteer** to scrape real-time job postings from LinkedIn and **Nodemailer** to send personalized, formal job applications via Gmail.
 
